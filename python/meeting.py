@@ -104,7 +104,8 @@ def join_meeting(host):
     driver.switch_to_frame("pbui_iframe")
 
     try:
-        got_it_btn = driver.find_element_by_xpath('/html/body/div[3]/div[2]/div/div/div/div/div[1]/button')
+        dialog_mask = driver.find_element_by_class_name('dialog-mask')
+        got_it_btn = driver.find_element_by_xpath('/html/body/div[4]/div[2]/div/div/div/div/div[1]/button')
         got_it_btn.click()
     except:
         pass
