@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#Optionally change current directory to webex-meeting-automation/ so that script can be executed anywhere
+#cd ~/webex-meetings-automation
+
 #Activate webex venv
 source ./webex-env/bin/activate
 

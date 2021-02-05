@@ -8,7 +8,8 @@ import sys
 import getpass
 import time
 
-chrome_profile_path = "user-data-dir=/home/piotr/.config/google-chrome/Webex"
+user_home_dir = os.getenv('HOME')
+chrome_profile_path = "user-data-dir=%s/.config/google-chrome/Webex"%(user_home_dir)
 options = Options()
 options.add_argument(chrome_profile_path)
 
@@ -90,6 +91,45 @@ def join_meeting(host):
     search_input_field.click()
 
     search_input_field.send_keys(host)
+    try:
+        time.sleep(3)
+        join_btn = driver.find_element_by_xpath('/html/body/div[4]/span/div/div[1]/div/div[2]/section/a/div/div[4]/button')
+        join_btn.click()
+    except:
+        time.sleep(2)
+        join_btn = driver.find_element_by_xpath('/html/body/div[4]/span/div/div[1]/div/div[2]/section/a/div/div[4]/button')
+        join_btn.click()
+
+    time.sleep(5)
+    driver.switch_to_frame("pbui_iframe")
+
+    try:
+        got_it_btn = driver.find_element_by_xpath('/html/body/div[3]/div[2]/div/div/div/div/div[1]/button')
+        got_it_btn.click()
+    except:
+        pass
+
+    mute_btn = driver.find_element_by_xpath('/html/body/div[1]/div/div[3]/div[2]/div[1]/div/button')
+    stop_video_btn = driver.find_element_by_xpath('//*[@id="meetingSimpleContainer"]/div[3]/div[2]/div[2]/div/button/span[2]')
+
+    # Mic and Camera state check
+    if mute_btn.text == "Mute":
+        mute_btn.click()
+    elif mute_btn.text == "Unmute":
+        pass
+    else:
+        print("Current mic state - ",mute_btn.text)
+
+    if stop_video_btn.text == "Stop video":
+        stop_video_btn.click()
+    elif stop_video_btn.text == "Start video":
+        pass
+    else:
+        print("Current camera state - ",stop_video_btn.text)
+
+    time.sleep(1)
+    join_meeting_btn = driver.find_element_by_xpath('//*[@id="interstitial_join_btn"]')
+    join_meeting_btn.click()
 
 ###############################################################################
 
@@ -101,7 +141,7 @@ def main():
         join_meeting(meeting_host)
 
     elif not logged_in:
-        print("\nYou are not logged in to Ansible Tower\nAttempting to login...\n")
+        print("\nYou are not logged in to Webex\nAttempting to login...\n")
         w3_login()
         time.sleep(10)
         main()
