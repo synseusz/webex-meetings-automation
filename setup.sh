@@ -13,6 +13,8 @@ pip install --upgrade pip
 pip3 install selenium
 
 #Move chromedriver (chrome version 88.0) to /usr/bin directory
-mv ./chromedriver /usr/bin
+echo
+echo "SUDO permissions required in order to move chromedriver to /usr/bin dir"
+sudo mv ./chromedriver /usr/bin
 
 exit
