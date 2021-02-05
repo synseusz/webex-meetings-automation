@@ -12,4 +12,7 @@ pip install --upgrade pip
 #Install selenium
 pip3 install selenium
 
+#Move chromedriver (chrome version 88.0) to /usr/bin directory
+mv ./chromedriver /usr/bin
+
 exit

@@ -9,7 +9,7 @@ if [ "$1" ]; then
   ./python/meeting.py $1
 else
   echo "No meeting host argument provided while executing script.."
-  echo "Please provide who is a meeting host (W3 EMAIL):"
+  echo "Please provide who is the meeting host (W3 EMAIL):"
   read HOST
   echo $HOST
   ./python/meeting.py $HOST
