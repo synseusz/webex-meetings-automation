@@ -87,18 +87,22 @@ def escape_special_chars(passwd_input):
 	return passwd_input
 
 def join_meeting(host):
-    search_input_field = driver.find_element_by_xpath('//*[@id="autoSearchInput"]')
-    search_input_field.click()
+    if host == os.environ.get('W3_USER'):
+        start_a_meeting_btn = driver.find_element_by_xpath('//*[@id="smartJoinButton"]')
+        start_a_meeting_btn.click()
+    else:
+        search_input_field = driver.find_element_by_xpath('//*[@id="autoSearchInput"]')
+        search_input_field.click()
+        search_input_field.send_keys(host)
 
-    search_input_field.send_keys(host)
-    try:
-        time.sleep(3)
-        join_btn = driver.find_element_by_xpath('/html/body/div[4]/span/div/div[1]/div/div[2]/section/a/div/div[4]/button')
-        join_btn.click()
-    except:
-        time.sleep(2)
-        join_btn = driver.find_element_by_xpath('/html/body/div[4]/span/div/div[1]/div/div[2]/section/a/div/div[4]/button')
-        join_btn.click()
+        try:
+	        time.sleep(3)
+	        join_btn = driver.find_element_by_xpath('/html/body/div[4]/span/div/div[1]/div/div[2]/section/a/div/div[4]/button')
+	        join_btn.click()
+        except:
+	        time.sleep(2)
+	        join_btn = driver.find_element_by_xpath('/html/body/div[4]/span/div/div[1]/div/div[2]/section/a/div/div[4]/button')
+	        join_btn.click()
 
     time.sleep(5)
     driver.switch_to_frame("pbui_iframe")
@@ -129,8 +133,13 @@ def join_meeting(host):
         print("Current camera state - ",stop_video_btn.text)
 
     time.sleep(1)
-    join_meeting_btn = driver.find_element_by_xpath('//*[@id="interstitial_join_btn"]')
-    join_meeting_btn.click()
+
+    try:
+    	join_meeting_btn = driver.find_element_by_xpath('//*[@id="interstitial_join_btn"]')
+    	join_meeting_btn.click()
+    except:
+        start_meeting_btn = driver.find_element_by_xpath('//*[@id="interstitial_start_btn"]')
+        start_meeting_btn.click()
 
 ###############################################################################
 

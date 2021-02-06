@@ -19,8 +19,8 @@ sudo mv ./chromedriver /usr/bin
 
 #Run script for the first time to generate Webex user-data-dir and save your settings and W3 credentials
 echo
-echo "Running script in order to go through first time setup..."
-echo "Please click through dialog box and allow browser to use your camera and mic when prompted"
+echo "Running script in order to go through the first time setup..."
+echo "Please authenticate your device if needed, click through dialog box and allow browser to use your camera and mic when prompted"
 ./python/meeting.py piotr.orlowski@ibm.com
 
 exit
