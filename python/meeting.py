@@ -87,7 +87,7 @@ def escape_special_chars(passwd_input):
 	return passwd_input
 
 def join_meeting(host):
-    if host == os.environ.get('W3_USER'):
+    if host == os.environ.get('W3_USER') or host == "me":
         start_a_meeting_btn = driver.find_element_by_xpath('//*[@id="smartJoinButton"]')
         start_a_meeting_btn.click()
     else:
